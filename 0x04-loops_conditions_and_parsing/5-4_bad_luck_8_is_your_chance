@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
-# A script that loops through 1 to 10 using while
+# Displays Best School from 1 to 10 with exceptions at 4th & 8th loop
 
-i=1
-
-while [ $i -le 10 ]
+COUNTER=0
+while [ $COUNTER -lt 10 ]
 do
-    if [ $i -eq 4 ]
-    then
-        echo "bad luck"
-    elif [ $i -eq 8 ]
-    then
-        echo "good luck"
-    else
-        echo "Best School"
-    fi
-    ((i++))
+	if [ $COUNTER = 3 ]
+	then
+		echo "bad luck"
+	elif [ $COUNTER = 7 ]
+	then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	(( COUNTER++ ))
 done
