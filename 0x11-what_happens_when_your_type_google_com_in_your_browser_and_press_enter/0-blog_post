@@ -1,0 +1,38 @@
+
+Write a blog post explaining what happens when you type https://www.google.com in your browser and press Enter.
+Requirements, your post must cover:
+DNS request
+TCP/IP
+Firewall
+HTTPS/SSL
+Load-balancer
+Web server
+Application server
+Database
+DNS Request:
+The process begins with a Domain Name System (DNS) request. Your browser needs to find out the IP address associated with the domain name "www.google.com." It sends a DNS query to a DNS resolver, which then traverses through a series of DNS servers until it finds the IP address associated with the domain.
+
+TCP/IP:
+Once the IP address is resolved, your browser initiates a Transmission Control Protocol (TCP) connection to the server using the Internet Protocol (IP). TCP ensures that the data sent from your browser is reliably transmitted to the server and vice versa.
+
+Firewall:
+As the connection is established, it may pass through various firewalls, both on your local network and the server's network. Firewalls act as a barrier between your system and potentially harmful traffic, ensuring that only legitimate requests are allowed through.
+
+HTTPS/SSL:
+With the connection established, your browser negotiates a secure connection using HTTPS (Hypertext Transfer Protocol Secure). This involves a handshake process where your browser and the server exchange encryption keys and establish a secure channel using SSL/TLS (Secure Sockets Layer/Transport Layer Security) protocols. This encryption ensures that the data exchanged between your browser and the server remains confidential and cannot be intercepted by malicious entities.
+
+
+
+Load-Balancer:
+Large websites like Google often utilize load balancers to distribute incoming traffic across multiple servers. Load balancers ensure that no single server becomes overwhelmed with requests, improving performance and reliability. When you access "www.google.com," your request may be directed to one of Google's many servers through a load balancer.
+
+Web Server:
+Once the request reaches the appropriate server, a web server such as Apache, Nginx, or Microsoft IIS processes it. The web server retrieves the requested web page or resource and prepares it for delivery back to your browser.
+Application Server:
+In the case of dynamic content or web applications, the web server may need to communicate with an application server. The application server executes the necessary code (such as PHP, Python, or Java) to generate the requested content dynamically.
+
+Database:
+If the requested content relies on data stored in a database, the application server may query a database server to retrieve the required information. The database server processes the query and returns the requested data to the application server, which then incorporates it into the final response sent back to your browser.
+
+
+
