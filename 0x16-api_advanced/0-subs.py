@@ -6,28 +6,43 @@ This script queries the Reddit API to retrieve the number of subscribers for a g
 
 import requests
 
-def number_of_subscribers(subreddit):
+def recurse(subreddit, hot_list=None, after=None):
     """
-    Retrieve the number of subscribers for a given subreddit using the Reddit API.
-
-    Args:
-        subreddit (str): The name of the subreddit.
-
-    Returns:
-        int: The number of subscribers for the subreddit. Returns 0 for an invalid subreddit.
+    Recursively query the Reddit API and return a list containing the titles
+    of all hot articles for a given subreddit.
+    If no results are found for the given subreddit, return None.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Custom User Agent'}  # Add a custom user agent to prevent Too Many Requests error
+    if hot_list is None:
+        hot_list = []
 
-    response = requests.get(url, headers=headers)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    headers = {"User-Agent": "Custom"}
+    params = {"limit": 100, "after": after}
 
-    if response.status_code == 200:
+    try:
+        response = requests.get(url, headers=headers, params=params)
+        response.raise_for_status()
+
         data = response.json()
-        subscribers = data['data']['subscribers']
-        return subscribers
-    else:
-        return 0
+        posts = data["data"]["children"]
+        for post in posts:
+            hot_list.append(post["data"]["title"])
 
-if __name__ == "__main__":
-    subreddit = 'learnprogramming'
-    print(f"Number of subscribers in r/{subreddit}: {number_of_subscribers(subreddit)}")
+        after = data["data"]["after"]
+        if after is not None:
+            recurse(subreddit, hot_list, after)
+
+        return hot_list
+
+    except requests.exceptions.RequestException as e:
+        print("Error: {}".format(e))
+        return None
+
+subreddit_name = "python"
+hot_articles = recurse(subreddit_name)
+if hot_articles is not None:
+    print("Hot articles in r/{}:".format(subreddit_name))
+    for title in hot_articles:
+        print(title)
+else:
+    print("No results found for r/{}.".format(subreddit_name))
